@@ -21,20 +21,23 @@
  */
 
 /**
- * @file phpunit.php
- * @namespace \
+ * @file StackTest.php
+ * @namespace UNITTESTS
  *
- *
- * COMPILER
+ * Example Unittest
  *
  * @author Florian Horn
  * @version
- * Version 1.0, 09.11.2013<br/>
+ * Version 1.0, 26.02.2011<br/>
  *
  */
 
-ob_start();
+namespace UNITTESTS;
 
-require_once('../vendor/autoload.php');
-
-require_once('../vendor/phpunit/phpunit/phpunit.php');
+class LoadTest extends \PHPUnit_Framework_TestCase
+{
+    public function testPushAndPop()
+    {
+        ;
+    }
+}

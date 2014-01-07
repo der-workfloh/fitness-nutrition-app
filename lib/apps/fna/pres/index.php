@@ -52,25 +52,7 @@ use APF\core\loader\StandardClassLoader;
  */
 SystemConfigurator::run("fna");
 
-/*
- * Add further libraries
- */
-/*
-// --- Propel
-RootClassLoader::addLoader(
-        new StandardClassLoader(
-                    'Propel', 
-                    '../../../../vendor/propel/propel/src/Propel'
-                )
-        );
-// --- Symfony
-RootClassLoader::addLoader(
-        new StandardClassLoader(
-                    'Symfony', 
-                    '../../../../vendor/symfony'
-                )
-        );
-*/
+
 
 /*
  * Start der Applikation
