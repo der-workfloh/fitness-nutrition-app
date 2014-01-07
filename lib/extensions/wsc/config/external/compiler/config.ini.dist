@@ -1,0 +1,90 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; COMPILER-CONFIGURATION
+;;
+;; Notwendige Konfigurationen für den Compiler
+;;
+;; @author Florian Horn
+;; @version 
+;; Version 1.3, 25.08.2011
+;; Version 2.0, 03.11.2013
+;; 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[Settings]
+BaseDir         = "/home/user/wsCatalyst"
+OutputDir       = "/home/user/wsCatalyst/output"
+
+
+[Environments]
+Env.0.Name       = "dev"
+Env.0.Short      = "d"
+Env.0.Macro      = "DEV"
+Env.1.Name       = "test"
+Env.1.Short      = "k"
+Env.1.Macro      = "TEST"
+Env.2.Name       = "live"
+Env.2.Short      = "p"
+Env.2.Macro      = "LIVE"
+
+
+[Includes]
+Ext             = "lib/extensions"
+
+
+[Log]
+LogDir          = "/home/user/wsCatalyst/logs"
+LogName         = "compiler.log"
+Active		= "false"
+
+
+[Ignore]
+Dirs.0		= "output"
+Dirs.1		= "scripts"
+Dirs.2		= "sql"
+Dirs.3		= "lib/extensions/wsc/external/compiler"
+Dirs.4		= "lib/extensions/wsc/config/external/compiler"
+Dirs.5		= "lib/apps"
+Dirs.6		= "lib/config/apps"
+Dirs.7		= "lib/unittests"
+Dirs.8          = "nbproject"
+Dirs.9          = "lib/examples"
+
+
+[Protect]
+Dirs.0		= "cache"
+Dirs.1		= "logs"
+Dirs.2		= "upload"
+
+
+[Force]
+Dirs.0		= "cache"
+Dirs.1		= "lib/config"
+Dirs.2		= "lib/config/apps"
+Dirs.3		= "logs"
+Dirs.4		= "upload"
+
+
+[Copy]
+Dirs.0          = "locale"
+Dirs.1          = "lib/core"
+Dirs.2          = "lib/modules"
+Dirs.3          = "lib/tools"
+
+
+[Order]
+0.Class         = "WSC\external\compiler\Compiler"
+0.Timing        = "Pre"
+1.Class         = "WSC\external\compiler\Copier"
+1.Timing        = "Pre"
+2.Class         = "WSC\external\compiler\Minifier"
+2.Timing        = "App"
+3.Class         = "WSC\external\compiler\Fusionizer"
+3.Timing        = "App"
+4.Class         = "WSC\external\compiler\Renamer"
+4.Timing        = "App"
+5.Class         = "WSC\external\compiler\GarbageCollector"
+5.Timing        = "Post"
+6.Class         = "WSC\external\compiler\SubversionHandler"
+6.Timing        = "Post"
+

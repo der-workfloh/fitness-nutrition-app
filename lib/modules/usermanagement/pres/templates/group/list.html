@@ -1,0 +1,110 @@
+<@controller
+   class="APF\modules\usermanagement\pres\documentcontroller\group\GroupListController"
+@>
+<table class="vis-def">
+   <thead>
+      <tr>
+         <td>&nbsp;</td>
+         <td><html:getstring
+               namespace="APF\modules\usermanagement\pres"
+               config="labels.ini"
+               entry="frontend.group.list.display-name.label"/></td>
+         <td><html:getstring
+               namespace="APF\modules\usermanagement\pres"
+               config="labels.ini"
+               entry="frontend.group.list.users.label"/></td>
+         <td><html:getstring
+               namespace="APF\modules\usermanagement\pres"
+               config="labels.ini"
+               entry="frontend.group.list.roles.label"/></td>
+         <td><html:getstring
+               namespace="APF\modules\usermanagement\pres"
+               config="labels.ini"
+               entry="frontend.group.list.actions.label"/></td>
+      </tr>
+   </thead>
+   <tbody>
+      <html:placeholder name="Grouplist"/>
+   </tbody>
+</table>
+
+<html:template name="Group">
+   <template:addtaglib class="APF\modules\usermanagement\pres\taglib\UmgtMediaInclusionTag" prefix="umgt" name="media"/>
+   <tr>
+      <td>
+         <umgt:media filename="group.png">
+            <media:getstring
+               namespace="APF\modules\usermanagement\pres"
+               config="labels.ini"
+               entry="frontend.group.list.group-icon.label"/>
+         </umgt:media>
+      </td>
+      <td>
+         <template:placeholder name="DisplayName"/>
+      </td>
+      <td>
+         <template:placeholder name="Users"/>
+      </td>
+      <td>
+         <template:placeholder name="Roles"/>
+      </td>
+      <td class="actions">
+         <a href="<template:placeholder name="group_details" />">
+            <umgt:media filename="details.png">
+               <media:getstring
+                  namespace="APF\modules\usermanagement\pres"
+                  config="labels.ini"
+                  entry="frontend.group.list.action.details.label"/>
+            </umgt:media>
+         </a>
+         <a href="<template:placeholder name="group_edit" />">
+            <umgt:media filename="edit.png" title="Edit group">
+               <media:getstring
+                  namespace="APF\modules\usermanagement\pres"
+                  config="labels.ini"
+                  entry="frontend.group.list.action.edit.label"/>
+            </umgt:media>
+         </a>
+         <a href="<template:placeholder name="group_delete" />">
+            <umgt:media filename="delete.png" title="Delete group">
+               <media:getstring
+                  namespace="APF\modules\usermanagement\pres"
+                  config="labels.ini"
+                  entry="frontend.group.list.action.delete.label"/>
+            </umgt:media>
+         </a>
+         <a href="<template:placeholder name="AddUsersToGroup" />">
+            <umgt:media filename="group_add_user.png" title="Add users to group">
+               <media:getstring
+                  namespace="APF\modules\usermanagement\pres"
+                  config="labels.ini"
+                  entry="frontend.group.list.action.add-user.label"/>
+            </umgt:media>
+         </a>
+         <a href="<template:placeholder name="RemoveUsersFromGroup" />">
+            <umgt:media filename="group_remove_user.png" title="Remove users from group">
+               <media:getstring
+                  namespace="APF\modules\usermanagement\pres"
+                  config="labels.ini"
+                  entry="frontend.group.list.action.remove-user.label"/>
+            </umgt:media>
+         </a>
+         <a href="<template:placeholder name="AddRolesToGroup" />">
+            <umgt:media filename="role_add.png" title="Add roles to group">
+               <media:getstring
+                  namespace="APF\modules\usermanagement\pres"
+                  config="labels.ini"
+                  entry="frontend.group.list.action.role-add.label"/>
+            </umgt:media>
+         </a>
+         <a href="<template:placeholder name="RemoveRolesFromGroup" />">
+            <umgt:media filename="role_remove.png" title="Remove roles from group">
+               <media:getstring
+                     namespace="APF\modules\usermanagement\pres"
+                     config="labels.ini"
+                     entry="frontend.group.list.action.role-remove.label"/>
+            </umgt:media>
+         </a>
+      </td>
+   </tr>
+</html:template>

@@ -1,0 +1,107 @@
+/**
+ * <!--
+ * This file is part of the wsCatalyst-Extensions (wsC) for the
+ * Adventure-PHP-Framework published under
+ * https://sourceforge.net/projects/wscatalyst.
+ *
+ * The wsC is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * The wsC is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with the wsC. If not, see http://www.gnu.org/licenses/lgpl-3.0.txt.
+ * -->
+ */
+
+/**
+ * @file debug.css
+ * @author: Florian Horn
+ * @version:
+ * Version 1.0, 28.01.2011
+ * Version 1.1, 26.02.2011
+ *
+ */
+ 
+ 
+/*
+ *
+ * Debug
+ *
+ */
+div.debug
+{
+    float:                  left;
+    clear:                  both;
+    background:             #555;
+    color:                  #eee;
+    margin:                 0px;
+    padding:                20px;
+    border:                 1px solid #900;
+    font-size:              12px !important;
+    font-weight:            300 !important;
+    font-family:            Verdana !important;
+}
+
+div.debug h1
+{
+    color:                  #f00;
+    font-size:              24px;
+    margin:                 10px 0px 30px;
+    font-size:              20px !important;
+    font-weight:            600 !important;
+    font-family:            Verdana !important;
+}
+
+div.debug h2
+{
+    color:                  #fff;
+    font-size:              16px;
+    margin:                 20px 0px 0px;
+    font-size:              16px !important;
+    font-weight:            600 !important;
+    font-family:            Verdana !important;
+}
+
+div.debug b
+{
+    font-weight:            600;
+    color:                  #0c0;
+    font-family:            Verdana !important;
+}
+
+div.debug ul
+{
+    margin:                 0px 0px 0px 30px;
+    padding:                0px;
+    font-family:            Verdana !important;
+}
+
+div.debug li
+{
+    font-weight:            600;
+    color:                  #0c0;
+    font-family:            Verdana !important;
+}
+
+div.debug th
+{
+    background:             #464544 !important;
+    color:                  #fff !important;
+}
+
+div.debug tr:hover
+{
+    background:             #878685 !important;
+    color:                  #fff !important;
+}
+
+div.debug_logger
+{
+    color:                  #000;
+}

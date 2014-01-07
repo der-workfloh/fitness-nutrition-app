@@ -1,0 +1,87 @@
+===========================
+===========================
+==                       ==
+==       VERSIONEN       ==
+==                       ==
+===========================
+===========================
+
+Mehr unter: https://sourceforge.net/apps/trac/wscatalyst/wiki/Roadmap
+
+Version 1.3.0:
+    - APF - Anpassungen an APF 1.13-beta
+    - Bugfixes
+    - Verzeichnisse 'clients' umbenannt in 'apps'
+    - Compiler - Refaktorisierung + neue Klasse CompilerManager
+    - Compiler - Neue Reihenfolge der Verarbeitung
+    - xMail - Nutzen der Adress-Konfiguration im xMailManager
+    - xMail - Erweiterung der Konfiguration für Adressen (Definition von Signatur-Template,...)
+    - xMail - Erweiterung der Template-Konfiguration damit Templates auch aus externen Files geladen werden kann
+    - Scripts - Passwort-Generator (pwgen)
+    - Scripts - PrivateKey-Generator (pkgen)
+    - Scripts - Compiler-Script an neue Klasse CompilerManager angepasst
+    - Konfiguration - Anpassung an neues Konfiguration-System
+    - Refaktorisierung der Module
+    - CodingStyle komplett überarbeitet
+
+
+Version 1.2.0:
+    - APF - Anpassungen an APF 1.12-stable
+    - Revision der wsCatalyst-Extension
+    - DB-Wrapper mit PDO hinzugefügt
+    - Umstellung auf wsDB::PDO
+    - TemplateEngine - Ajax hinzugefügt
+    - Module - Refactoring RssFeed
+    - Module - Refactoring Currency
+    - Einpflegung der fehlenden Lizenzheader
+    - Logging - Optimierte Logging-Funktion
+    - Compiler - ProgressBar für Copier und Fusionizer
+    - Compiler - Umstellung der Makro-Auszeichnung
+    - Gettext - Support (wieder) hinzugefügt
+    - PHPUnit - Aktualisierung auf 3.5-stable
+    - PHPUnit - Skript-Anpassungen an 3.5-stable
+
+
+Version 1.1.2:
+    - APF - Anpassungen an APF 1.12b-r990
+    - Auslagerung aller sonstigen unter Lib angesiedelten Klassen nach extensions::wsc
+    - Usermanagement - Administration zu Login hinzufügen
+    - Usermanagement - Benutzerrollen zu Login hinzufügen
+    - Usermanagement - Benutzergruppen zu Login hinzufügen
+    - Fileupload - Generische Klasse zum Uploaden von Files für Filehandler
+    - Filedownload - Generische Klasse zum Downloaden von Files für Filehandler verbessern
+    - Compiler - Zusätzliche Logfile zuschaltbar
+    - Compiler - Fusion-Funktion (Div. Dateien in Reihenfolge ohne Komprimierung in eine Datei schreiben)
+    - xMail - Bugfixes, Flag_Date nach RFC 2822 nutzen
+    - wsDate - Neue Methode für Ausgabe von Date nach RFC 2822
+
+
+Version 1.1.1:
+    - Viele Bugfixes, die durch Umstrukturierung entstanden.
+    - Log - Umstellung Logger auf AdvancedLogger
+    - wsC:Tools - Umstrukturierung nach extensions
+
+
+Version 1.1.0:
+    - Konstanten entfernt und in ConfigurationHandler integriert
+    - HTMLList Taglib erstellt (in APF übernommen)
+    - Mail-Konfiguration ermöglicht
+    - Mail-Klasse nach extensions/xmail verschoben
+    - Compiler - Umstrukturierung, Multiclient-fähig. Geänderter Syntax!
+    - Bessere Konfigurierbarkeit von Clients und Compiler
+
+
+Version 1.0.3:
+    - Improvement und Compatibility-Update.
+    - Der Client-Ordner wurde in Lib verlagert um die Ordnerstruktur des APFs korrekt zu halten.
+    - Umstieg der wsC:Komponenten auf APF-Module, APF-Actions und APF-Views.
+    - Neustrukturierung/Neukonfigurierung der Cronjobs.
+
+
+Version 1.0.2:
+    - Cronjob - Verbesserung der Op-Methoden
+
+
+Version 1.0.1:
+    - [Bug] Komponente Login - Logout schlägt fehl
+    - [Bugs] Cronjob - Zeitberechnung

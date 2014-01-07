@@ -1,0 +1,133 @@
+<@controller
+   class="APF\modules\usermanagement\pres\documentcontroller\role\RoleListController"
+@>
+<table class="vis-def">
+   <thead>
+      <tr>
+         <td>&nbsp;</td>
+         <td><html:getstring
+                namespace="APF\modules\usermanagement\pres"
+                config="labels.ini"
+                entry="frontend.role.list.display-name.label"/></td>
+         <td><html:getstring
+                namespace="APF\modules\usermanagement\pres"
+                config="labels.ini"
+                entry="frontend.role.list.permissions.label"/></td>
+         <td><html:getstring
+                namespace="APF\modules\usermanagement\pres"
+                config="labels.ini"
+                entry="frontend.role.list.users.label"/></td>
+         <td><html:getstring
+                namespace="APF\modules\usermanagement\pres"
+                config="labels.ini"
+                entry="frontend.role.list.groups.label"/></td>
+         <td><html:getstring
+                namespace="APF\modules\usermanagement\pres"
+                config="labels.ini"
+                entry="frontend.role.list.actions.label"/></td>
+      </tr>
+   </thead>
+   <tbody>
+      <html:placeholder name="RoleList"/>
+   </tbody>
+</table>
+
+<html:template name="Role">
+   <template:addtaglib class="APF\modules\usermanagement\pres\taglib\UmgtMediaInclusionTag" prefix="umgt" name="media"/>
+   <tr>
+      <td>
+         <umgt:media filename="role.png">
+            <media:getstring
+                namespace="APF\modules\usermanagement\pres"
+                config="labels.ini"
+                entry="frontend.role.list.role-icon.label"/>
+         </umgt:media>
+      </td>
+      <td>
+         <template:placeholder name="DisplayName"/>
+      </td>
+      <td>
+         <template:placeholder name="Permissions"/>
+      </td>
+      <td>
+         <template:placeholder name="Users"/>
+      </td>
+      <td>
+         <template:placeholder name="Groups"/>
+      </td>
+      <td class="actions">
+         <a href="<template:placeholder name="role_details" />">
+            <umgt:media filename="details.png">
+               <media:getstring
+                   namespace="APF\modules\usermanagement\pres"
+                   config="labels.ini"
+                   entry="frontend.role.list.action.details.label"/>
+            </umgt:media>
+         </a>
+         <a href="<template:placeholder name="role_edit" />">
+            <umgt:media filename="edit.png">
+               <media:getstring
+                   namespace="APF\modules\usermanagement\pres"
+                   config="labels.ini"
+                   entry="frontend.role.list.action.edit.label"/>
+            </umgt:media>
+         </a>
+         <a href="<template:placeholder name="role_delete" />">
+            <umgt:media filename="delete.png">
+               <media:getstring
+                   namespace="APF\modules\usermanagement\pres"
+                   config="labels.ini"
+                   entry="frontend.role.list.action.delete.label"/>
+            </umgt:media>
+         </a>
+         <a href="<template:placeholder name="AddPermissionToRole" />">
+            <umgt:media filename="permission_add.png">
+               <media:getstring
+                   namespace="APF\modules\usermanagement\pres"
+                   config="labels.ini"
+                   entry="frontend.role.list.action.add-permission-to-role.label"/>
+            </umgt:media>
+         </a>
+         <a href="<template:placeholder name="RemoveRoleFromPermission" />">
+            <umgt:media filename="permission_remove.png">
+               <media:getstring
+                   namespace="APF\modules\usermanagement\pres"
+                   config="labels.ini"
+                   entry="frontend.role.list.action.remove-permission-from-role.label"/>
+            </umgt:media>
+         </a>
+         <a href="<template:placeholder name="AssignRoleToUser" />">
+            <umgt:media filename="group_add_user.png">
+               <media:getstring
+                   namespace="APF\modules\usermanagement\pres"
+                   config="labels.ini"
+                   entry="frontend.role.list.action.assign-role-to-user.label"/>
+            </umgt:media>
+         </a>
+         <a href="<template:placeholder name="DetachRoleFromUser" />">
+            <umgt:media filename="group_remove_user.png">
+               <media:getstring
+                   namespace="APF\modules\usermanagement\pres"
+                   config="labels.ini"
+                   entry="frontend.role.list.action.remove-role-from-user.label"/>
+            </umgt:media>
+         </a>
+         <a href="<template:placeholder name="AddGroupToRole" />">
+            <umgt:media filename="add_group.png">
+               <media:getstring
+                   namespace="APF\modules\usermanagement\pres"
+                   config="labels.ini"
+                   entry="frontend.role.list.action.add-group-to-role.label"/>
+            </umgt:media>
+         </a>
+         <a href="<template:placeholder name="RemoveGroupFromRole" />">
+            <umgt:media filename="remove_group.png">
+               <media:getstring
+                   namespace="APF\modules\usermanagement\pres"
+                   config="labels.ini"
+                   entry="frontend.role.list.action.remove-group-from-role.label"/>
+            </umgt:media>
+         </a>
+      </td>
+   </tr>
+</html:template>

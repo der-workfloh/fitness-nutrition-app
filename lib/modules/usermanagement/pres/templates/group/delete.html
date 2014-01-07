@@ -1,0 +1,37 @@
+<@controller
+   class="APF\modules\usermanagement\pres\documentcontroller\group\GroupDeleteController"
+@>
+<h3><html:getstring
+      namespace="APF\modules\usermanagement\pres"
+      config="labels.ini"
+      entry="frontend.group.delete.headline"
+      /></h3>
+<p>
+   <html:getstring
+      name="display-name"
+      namespace="APF\modules\usermanagement\pres"
+      config="labels.ini"
+      entry="frontend.group.delete.confirmation.text"/>
+
+</p>
+<core:addtaglib class="APF\tools\form\taglib\HtmlFormTag" prefix="html" name="form" />
+<html:form name="GroupDelNo" method="post">
+   <div>
+   <form:button name="No" value="No">
+      <button:getstring
+         namespace="APF\modules\usermanagement\pres"
+         config="labels.ini"
+         entry="frontend.group.delete.button-no.label"/>
+   </form:button>
+   </div>
+</html:form>
+<html:form name="GroupDelYes" method="post">
+   <div>
+      <form:button name="Yes" value="Yes">
+         <button:getstring
+            namespace="APF\modules\usermanagement\pres"
+            config="labels.ini"
+            entry="frontend.group.delete.button-yes.label"/>
+      </form:button>
+   </div>
+</html:form>

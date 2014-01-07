@@ -1,0 +1,206 @@
+#!d:\programme\zend\zendserver\bin\php.exe
+<?php
+
+/**
+ * <!--
+ * This file is part of the wsCatalyst-Extensions (wsC) for the
+ * Adventure-PHP-Framework published under
+ * https://sourceforge.net/projects/wscatalyst.
+ *
+ * The wsC is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * The wsC is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with the wsC. If not, see http://www.gnu.org/licenses/lgpl-3.0.txt.
+ * -->
+ */
+
+
+
+define( "BR" , "\n" );
+define( "DS" , "\\" );
+define( "POEDIT_DIR" , "D:\Programme\Poedit\bin");
+define( "__VERSION" , "1.0" );
+define( "__AUTHOR" , "Florian Horn" );
+define( "__NAME" , "wsCatalyst Gettext Utility Tool" );
+define( "__SKRIPT" , "gettext" );
+
+/*
+ *
+ * h:           Hilfe
+ * c:			Command
+ *      g:      Gettext
+ *      t:      Translate (default)
+ * s:			System
+ *      w:      Windows (default)
+ *      u:      Unix
+ * l:           Locale
+ * 
+ */
+$shortopts  = "hc:l:s:";
+$longopts  = array(
+    "help",
+    "command:",
+    "locale:",
+    "system:"
+);
+
+
+
+
+
+
+/**
+ * Parse the CLI Argument List with given options
+ */
+function parseArgumentList($shortopts, $longopts)
+{
+    $aOptions = array();
+
+    $aArgs = getopt( $shortopts, $longopts);
+
+    // --- Hilfe
+    if( array_key_exists( 'h' , $aArgs ) || array_key_exists( 'help' , $aArgs ) )
+    {
+        showInfo();
+        exit();
+    }
+
+
+    // --- Command
+    if( array_key_exists( 'c' , $aArgs ) || array_key_exists( 'command' , $aArgs ) )
+    {
+        $Val = array_key_exists( 'c' , $aArgs ) ? $aArgs['c'] : $aArgs['command'];
+        switch( $Val )
+        {
+            case strtolower('g'): $aOptions[ 'Cmd' ] = 'gettext'; break;
+            case strtolower('gettext'): $aOptions[ 'Cmd' ] = 'gettext'; break;
+            case strtolower('t'): $aOptions[ 'Cmd' ] = 'translate'; break;
+            case strtolower('translate'): $aOptions[ 'Cmd' ] = 'translate'; break;
+            default:
+                showError( 'Falscher Wert fuer Command' );
+        }
+    }
+    else
+    {
+        $aOptions[ 'Cmd' ] = 'translate';
+    }
+
+
+    // --- System
+    if( array_key_exists( 's' , $aArgs ) || array_key_exists( 'system' , $aArgs ) )
+    {
+        $Val = array_key_exists( 's' , $aArgs ) ? $aArgs['s'] : $aArgs['system'];
+        switch( $Val )
+        {
+            case strtolower('w'): $aOptions[ 'System' ] = 'bat'; break;
+            case strtolower('windows'): $aOptions[ 'System' ] = 'bat'; break;
+            case strtolower('u'): $aOptions[ 'System' ] = 'sh'; break;
+            case strtolower('unix'): $aOptions[ 'System' ] = 'sh'; break;
+            default:
+                showError( 'Falscher Wert fuer System' );
+        }
+    }
+    else
+    {
+        $aOptions[ 'System' ] = 'bat';
+    }
+
+
+    // --- Locales
+    if( array_key_exists( 'l' , $aArgs ) || array_key_exists( 'locale' , $aArgs ) )
+    {
+        $Val = array_key_exists( 'l' , $aArgs ) ? $aArgs['l'] : $aArgs['locale'];
+        $Val = explode( ' ' , $Val );
+        $aOptions[ 'Locales' ] = array();
+        foreach( $Val as $locale )
+        {
+            if( empty( $locale ) ) continue;
+            $aOptions[ 'Locales' ][] = $locale;
+        }
+    }
+    else
+    {
+        showError( 'Keine Locales angegeben' );
+    }
+
+    return $aOptions;
+}
+
+
+/**
+ * Show the CLI Help
+ */
+function showInfo()
+{
+    print( BR.__NAME.' '.__VERSION.' by '.__AUTHOR );
+    print( BR.BR );
+
+    $sSkript = __SKRIPT;
+echo <<<EOT
+Syntax: {$sSkript} --help
+Syntax: {$sSkript} -c[gt] -s[wu] -l[Locale]([Locale] ...)
+
+Options:
+    --help/-h               Shows this help
+
+    --command/-c            Command
+        Gettext/g           Creates a new set of gettext files (all old translation data will be lost!)
+        Translate/t         Transforms the po-file into mo-file (default)
+
+    --system/-s             System
+        Windows/w           Windows (default)
+        Unix/u              Unix
+
+    --locale/-l             Locale
+EOT;
+}
+
+function showError( $sMsg )
+{
+    showInfo();
+    print( BR.BR.'[RuntimeException] '.$sMsg );
+    exit();
+}
+
+
+
+
+/**
+ * Main compiler script
+ */
+function main($shortopts, $longopts)
+{
+    /*
+     * Parse die ArgumentenListe
+     */
+    $aOptions = parseArgumentList($shortopts, $longopts);
+
+    print( BR.__NAME.' '.__VERSION.' by '.__AUTHOR );
+    print( BR.BR );
+
+
+    foreach( $aOptions[ 'Locales' ] as $l )
+    {
+        $sAppParam      = $aOptions['System']==='bat'? POEDIT_DIR : NULL;
+        $sSkript        = '.'.DS.'lib'.DS.$aOptions['Cmd'].'.'.$aOptions['System'].' '.$l.' '.$sAppParam;
+        $sCallSkript    = escapeshellcmd( $sSkript );
+        print( BR.'Calling commando: '.$sSkript.BR );
+        $sRet = shell_exec( $sCallSkript );
+    }
+}
+
+
+
+
+
+// --- Call Main Skript
+main($shortopts, $longopts);
+?>

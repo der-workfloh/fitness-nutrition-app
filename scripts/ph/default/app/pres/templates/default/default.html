@@ -1,0 +1,52 @@
+<@controller class="APF\apps\{{{APPS}}}\docs\templates\DefaultController" @><!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+    <head>
+        <title>wsCatalyst - Adventure-PHP-Framework Extension</title>
+        <meta name="author" content="Florian Horn" />
+        <meta name="description" content="Adventure-PHP-Framework Extension" />
+        <meta name="keywords" content="Adventure-PHP-Framework Extension" />
+        <meta name="robots" content="index,follow" />
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <meta http-equiv="Content-Script-Type" content="text/javascript" />
+        <meta http-equiv="Content-Style-Type" content="text/css" />
+        <meta http-equiv="cache-control" content="no-cache" />
+        <meta http-equiv="pragma" content="no-cache" />
+        <meta http-equiv="expires" content="Thu, 30 Oct 2014 16:00:00 GMT" />
+        <link rel="SHORTCUT ICON" type="image/x-icon" href="./templates/default/img/icon.ico" />
+        <link href="templates/default/css/default_screen.css" type="text/css" media="screen" rel="Stylesheet" />
+    </head>
+
+    <body>
+
+        <div id="page_margins">
+            <div id="page">
+
+
+                <div id="container">
+                    <div id="container_inhalt" class="clearfix">
+
+                        <div id="content">
+                            <div id="content_inhalt" class="clearfix">
+
+                                <img src="templates/default/img/layout/logo.png" alt="wsCatalyst Logo" />
+                                <h1>wsCatalyst</h1>
+                                <core:addtaglib namespace="WSC\tools\html\taglib\AddObjectTag"  prefix="wsc" class="addobject" />
+                                <wsc:addobject type="content" requestparam="page" defaultvalue="start" />
+
+                            </div>
+                        </div>
+
+                        <div id="footer">
+                            <div id="footer_inhalt">
+                                <a href="https://sourceforge.net/apps/trac/wscatalyst/wiki" title="wsCatalyst">wsCatalyst</a>, 2010-2011
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </body>
+</html>

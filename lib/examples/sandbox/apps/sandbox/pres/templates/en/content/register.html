@@ -1,0 +1,33 @@
+<h2>Registration</h2>
+<p>
+   On this page you can sign-up as a new user. This component is designed for your customers to create a new user
+   account. The present implementation is a simple form that requires only the basic data of a user to be filled in. In
+   case you want to store further attributes this implementation can be taken as a good start.
+</p>
+<p>
+   Please note, that you can only sign up in case the <a href="?page=umgt-wizzard">user management wizzard</a> has been
+   executed before.
+</p>
+<p>
+   In order to include the form, please use the subsequent code:
+</p>
+<pre>
+&lt;core:importdesign
+   namespace="modules::usermanagement::pres::templates::registration"
+   template="register"
+/&gt;
+</pre>
+<p>
+   The appearance of the form can be defined using CSS freely. Details can be taken from the <em>/css/register.css</em>
+   and this template that is located under <em>/apps/sandbox/pres/templates/en/content/register.html</em>.
+</p>
+<div class="register-wrapper">
+   <h3>Registration</h3>
+   <core:importdesign
+      namespace="modules::usermanagement::pres::templates::registration"
+      template="register"
+   />
+</div>
+<p>
+   After creating your account you may login <a href="?page=login">here</a>.
+</p>

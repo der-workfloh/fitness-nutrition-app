@@ -1,0 +1,42 @@
+/*** BEGIN (ENV_LIVE) */
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; SYSTEM-CONFIGURATION
+;;
+;; Notwendige Konfigurationen fuer das System
+;;
+;; @author Florian Horn
+;; @version
+;; Version 1.0, 09.04.2010
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[Application]
+Name            = "wsCatalyst"
+Version         = "2.0.0"
+Package         = "stable"
+Environment     = "LIVE"
+
+
+[APF]
+Version         = "2.0"
+Package         = "stable"
+
+
+[Paths]
+;Docroot        = "D:\Programme\Zend\Apache2\htdocs"
+;Sysbind        = "/wsCatalyst/output"
+
+
+/*** BEGIN (EXAMPLE) */
+Docroot         = "F:\dev\wsCatalyst\integrationtest-apf-2.0"
+Sysbind         = "/output"
+/*** END (EXAMPLE) */
+
+
+[Includes]
+;Pear            = "lib/extensions/pear"
+;Zend            = "lib/extensions/Zend"
+
+
+/*** END (ENV_LIVE) */

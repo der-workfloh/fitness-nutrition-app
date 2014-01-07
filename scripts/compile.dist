@@ -1,0 +1,240 @@
+<?php
+/**
+ * <!--
+ * This file is part of the wsCatalyst-Extensions (wsC) for the
+ * Adventure-PHP-Framework published under
+ * https://sourceforge.net/projects/wscatalyst.
+ *
+ * The wsC is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * The wsC is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with the wsC. If not, see http://www.gnu.org/licenses/lgpl-3.0.txt.
+ * -->
+ */
+
+/**
+ * @file compile
+ * @namespace \
+ *
+ *
+ * COMPILER
+ *
+ * @author Florian Horn
+ * @version
+ * Version 1.0, 03.04.2010<br/>
+ * Version 1.1, 21.10.2010<br/>
+ * Version 2.0, 03.11.2013<br/>
+ *
+ */
+
+
+
+/**
+ * Settings
+ */
+define( "DS" , '\\' );
+define( "BR" , "\n" );
+define( "__VERSION" , "2.0" );
+define( "__AUTHOR" , "Florian Horn" );
+define( "__NAME" , "wsCatalyst Compiler" );
+define( "__SKRIPT" , "compile" );
+$_SERVER['SERVER_PORT'] = '';
+$_SERVER['REQUEST_URI'] = '';
+$_SERVER['HTTP_HOST']   = '';
+
+require_once('../lib/extensions/wsc/external/compiler/bootstrap.php');
+
+use WSC\external\compiler\CompilerManager;
+use APF\core\configuration\ConfigurationManager;
+
+
+
+/*
+ *
+ * h:           Hilfe
+ * p:			Projektname(n)
+ * e:           Umgebung
+ *      d:           Umgebung "Dev"
+ *      k:           Umgebung "Test"
+ *      p:           Umgebung "Produktiv"
+ * 
+ */
+$shortopts  = "ha:e:";
+$longopts   = array(
+    "help",
+    "apps:",
+    "env:"
+);
+
+
+
+/**
+ * Parse the CLI Argument List with given options
+ */
+function parseArgumentList($shortopts, $longopts)
+{
+    $aOptions   = array();
+    $aArgs      = getopt($shortopts, $longopts);
+
+    // --- Hilfe
+    if (array_key_exists( 'h' , $aArgs ) || 
+        array_key_exists( 'help' , $aArgs )) {
+        showInfo();
+        exit();
+    }
+
+    
+    // --- Lade alle konfigurierten Umgebungen
+    $aCnfCompiler = ConfigurationManager::loadConfiguration(
+                'WSC\external\compiler',
+                null,
+                null,
+                null,
+                'config.ini' 
+            );
+    
+    foreach ($aCnfCompiler->getSection('Environments')->getSection('Env')->getSectionNames() as $aEnvSectionNumber) {
+        $oEnvSection = $aCnfCompiler->getSection('Environments')->getSection('Env')->getSection($aEnvSectionNumber);
+        $aEnvironments[$oEnvSection->getValue('Name')] = array(
+            'name' => $oEnvSection->getValue('Name'),
+            'short' => $oEnvSection->getValue('Short'),
+            'macro' => $oEnvSection->getValue('Macro')
+        );
+    }
+    
+
+    // --- Umgebung
+    if (array_key_exists( 'e' , $aArgs ) || 
+        array_key_exists( 'env' , $aArgs )) {
+        $Val = array_key_exists('e', $aArgs) ? $aArgs['e'] : $aArgs['env'];
+        
+        $bEnvironmentFound = false;
+        foreach ($aEnvironments as $aEnv) {
+            if ($Val === $aEnv['name'] || $Val === $aEnv['short']) {
+                $aOptions['Env'] = $aEnv['short'];
+                $bEnvironmentFound = true;
+                break;
+            }
+        }
+        
+        if (!$bEnvironmentFound) {
+            showError( 'Falscher Wert fuer Umgebung' );
+        }
+    } else {
+        showError( 'Parameter fuer Umgebung fehlt' );
+    }
+
+
+    // --- Projekte
+    if (array_key_exists( 'a' , $aArgs ) || 
+        array_key_exists( 'apps' , $aArgs )) {
+        $Val = array_key_exists('a' , $aArgs) ? $aArgs['a'] : $aArgs['apps'];
+        $Val = explode(' ', $Val);
+        $aOptions[ 'Projects' ] = array();
+        foreach ($Val as $project) {
+            if(empty( $project )) {
+                continue;
+            }
+            
+            $aOptions[ 'Projects' ][] = $project;
+        }
+    } else {
+        showError('Kein Projekt angegeben');
+    }
+
+    return $aOptions;
+}
+
+
+/**
+ * Show the CLI Help
+ */
+function showInfo()
+{
+    print(BR.__NAME.' '.__VERSION.' by '.__AUTHOR);
+    print(BR.BR);
+
+    $sSkript = __SKRIPT;
+echo <<<EOT
+Syntax: {$sSkript} --help
+Syntax: {$sSkript} -e[...] -a
+
+Options:
+    --help/-h               Shows this help
+
+    --env/-e                Environment
+        {name}/{short}      Values are define in configuration file external/compiler/config.ini;
+                            short or name value are allowed
+
+
+    --apps/-a {AppName}     Projects/Apps
+
+EOT;
+}
+
+
+/**
+ * SHow error message
+ * @param string $sMsg
+ */
+function showError($sMsg)
+{
+    showInfo();
+    print(BR.BR.'[RuntimeException] '.$sMsg);
+    exit();
+}
+
+
+
+/**
+ * Main compiler script
+ */
+function main($shortopts, $longopts)
+{
+    /*
+     * Parse die ArgumentenListe
+     */
+    $aOptions = parseArgumentList($shortopts, $longopts);
+
+    print( BR.__NAME.' '.__VERSION.' by '.__AUTHOR );
+    print( BR );
+
+    /*
+     * Compiler-Konfiguration laden
+     */
+    $Cnf = ConfigurationManager::loadConfiguration(
+                'WSC\external\compiler',
+                null,
+                null,
+                null,
+                'config.ini' 
+            );
+
+    /*
+     * Compiler erstellen
+     */
+    CompilerManager::prepare($Cnf, $aOptions);
+
+    // --- Compilieren
+    print(BR.'Starte Compilierung fuer '.implode( ", " , $aOptions['Projects'] )."...");
+    CompilerManager::compile();
+
+    // --- Resultate
+    print(BR);
+    print('Dauer: '.CompilerManager::printResults().'s'."\n");
+}
+
+
+
+
+
+// --- Call Main Skript
+main($shortopts, $longopts);

@@ -1,0 +1,51 @@
+<@controller
+   class="APF\modules\usermanagement\pres\documentcontroller\group\GroupAddRoleToGroupsController"
+@>
+<core:addtaglib class="APF\tools\form\taglib\HtmlFormTag" prefix="html" name="form" />
+<h3><html:getstring
+       namespace="APF\modules\usermanagement\pres"
+       config="labels.ini"
+       entry="frontend.role.add-role-to-groups.headline"/></h3>
+<html:form name="Groups" method="post">
+   <div>
+      <form:addvalidator
+            class="APF\tools\form\validator\MultiSelectFieldValidator"
+            button="Add"
+            control="Groups"
+            />
+      <p>
+         <form:getstring
+                namespace="APF\modules\usermanagement\pres"
+                config="labels.ini"
+                entry="frontend.role.add-role-to-groups.intro.text"/>
+      </p>
+      <p>
+         <form:multiselect name="Groups" size="4"/>
+      </p>
+      <p>
+         <form:button name="Add">
+            <button:getstring
+                   namespace="APF\modules\usermanagement\pres"
+                   config="labels.ini"
+                   entry="frontend.role.add-role-to-groups.button.label"/>
+         </form:button>
+      </p>
+   </div>
+</html:form>
+
+<html:template name="NoMoreGroups">
+   <p>
+      <template:getstring
+            name="message-1"
+            namespace="APF\modules\usermanagement\pres"
+            config="labels.ini"
+            entry="frontend.role.add-role-to-groups.message.1"/>
+   </p>
+   <p>
+      <template:getstring
+            name="message-2"
+            namespace="APF\modules\usermanagement\pres"
+            config="labels.ini"
+            entry="frontend.role.add-role-to-groups.message.2"/>
+   </p>
+</html:template>

@@ -1,0 +1,110 @@
+<@controller
+   class="APF\modules\usermanagement\pres\documentcontroller\user\UserDetailsController"
+@>
+<h3><html:getstring
+      name="headline"
+      namespace="APF\modules\usermanagement\pres"
+      config="labels.ini"
+      entry="frontend.user.details.headline"
+      /></h3>
+
+<core:addtaglib class="APF\tools\html\taglib\HtmlIteratorTag" prefix="html" name="iterator" />
+<h4><html:getstring
+      name="headline"
+      namespace="APF\modules\usermanagement\pres"
+      config="labels.ini"
+      entry="frontend.user.details.user-details.label"/></h4>
+<html:template name="User">
+   <p>
+      <template:placeholder name="FirstName" />, <template:placeholder name="LastName" />
+   </p>
+   <p>
+      <template:placeholder name="EMail" />
+   </p>
+</html:template>
+
+<h4><html:getstring
+      name="headline"
+      namespace="APF\modules\usermanagement\pres"
+      config="labels.ini"
+      entry="frontend.user.details.groups.label"/></h4>
+<html:iterator name="Groups">
+   <ul>
+      <iterator:item>
+         <item:addtaglib class="APF\modules\usermanagement\pres\taglib\UmgtMediaInclusionTag" prefix="umgt" name="media" />
+         <li>
+            <umgt:media filename="group.png">
+               <media:getstring
+                  namespace="APF\modules\usermanagement\pres"
+                  config="labels.ini"
+                  entry="frontend.user.details.group-img.label"
+               />
+            </umgt:media>
+            <item:placeholder getter="getDisplayName" />
+         </li>
+      </iterator:item>
+   </ul>
+</html:iterator>
+
+<h4><html:getstring
+      name="headline"
+      namespace="APF\modules\usermanagement\pres"
+      config="labels.ini"
+      entry="frontend.user.details.roles.label"/></h4>
+<html:iterator name="Roles">
+   <ul>
+   <iterator:item>
+      <item:addtaglib class="APF\modules\usermanagement\pres\taglib\UmgtMediaInclusionTag" prefix="umgt" name="media" />
+      <li>
+         <umgt:media filename="role.png">
+            <media:getstring
+               namespace="APF\modules\usermanagement\pres"
+               config="labels.ini"
+               entry="frontend.user.details.role-img.label"
+            />
+         </umgt:media>
+         <item:placeholder getter="getDisplayName"/>
+      </li>
+   </iterator:item>
+   </ul>
+</html:iterator>
+      
+<h4><html:getstring
+      name="headline"
+      namespace="APF\modules\usermanagement\pres"
+      config="labels.ini"
+      entry="frontend.user.details.objects.label"/></h4>
+<html:iterator name="Proxies">
+   <ul>
+   <iterator:item>
+      <item:addtaglib class="APF\modules\usermanagement\pres\taglib\UmgtMediaInclusionTag" prefix="umgt" name="media" />
+      <li>
+         <umgt:media filename="visibility_def.png">
+            <media:getstring
+               namespace="APF\modules\usermanagement\pres"
+               config="labels.ini"
+               entry="frontend.user.details.proxy-img.label"
+            />
+         </umgt:media>
+
+         <item:getstring
+               namespace="APF\modules\usermanagement\pres"
+               config="labels.ini"
+               entry="frontend.user.details.app-obj-id.label"/>
+         <strong><item:placeholder getter="getAppObjectId" /></strong>
+
+         <item:getstring
+            namespace="APF\modules\usermanagement\pres"
+            config="labels.ini"
+            entry="frontend.user.details.proxy-id.label" />
+         <strong><item:placeholder getter="getObjectId" /></strong>
+
+         <item:getstring
+            namespace="APF\modules\usermanagement\pres"
+            config="labels.ini"
+            entry="frontend.user.details.permissions.label" />
+         <strong><item:placeholder getter="getReadPermission" /></strong>/<strong><item:placeholder getter="getWritePermission" /></strong>/<strong><item:placeholder getter="getLinkPermission" /></strong>/<strong><item:placeholder getter="getDeletePermission" /></strong>
+      </li>
+   </iterator:item>
+   </ul>
+</html:iterator>

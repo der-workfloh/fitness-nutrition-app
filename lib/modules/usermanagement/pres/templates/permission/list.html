@@ -1,0 +1,69 @@
+<@controller
+   class="APF\modules\usermanagement\pres\documentcontroller\permission\PermissionListController"
+@>
+<table class="vis-def">
+   <thead>
+      <tr>
+         <td>&nbsp;</td>
+         <td><html:getstring
+                namespace="APF\modules\usermanagement\pres"
+                config="labels.ini"
+                entry="frontend.permission.list.display-name.label"/></td>
+         <td><html:getstring
+                namespace="APF\modules\usermanagement\pres"
+                config="labels.ini"
+                entry="frontend.permission.list.name.label"/></td>
+         <td><html:getstring
+                namespace="APF\modules\usermanagement\pres"
+                config="labels.ini"
+                entry="frontend.permission.list.value.label"/></td>
+         <td><html:getstring
+                namespace="APF\modules\usermanagement\pres"
+                config="labels.ini"
+                entry="frontend.permission.list.actions.label"/></td>
+      </tr>
+   </thead>
+   <tbody>
+      <html:placeholder name="ListPermissions"/>
+   </tbody>
+</table>
+<html:template name="Permission">
+   <template:addtaglib class="APF\modules\usermanagement\pres\taglib\UmgtMediaInclusionTag" prefix="umgt" name="media" />
+   <tr>
+      <td>
+         <umgt:media filename="permission.png">
+            <media:getstring
+                namespace="APF\modules\usermanagement\pres"
+                config="labels.ini"
+                entry="frontend.permission.list.permission-icon.label"/>
+         </umgt:media>
+      </td>
+      <td>
+         <template:placeholder name="DisplayName"/>
+      </td>
+      <td>
+         <template:placeholder name="Name"/>
+      </td>
+      <td>
+         <template:placeholder name="Value"/>
+      </td>
+      <td class="actions">
+         <a href="<template:placeholder name="permission_edit" />">
+            <umgt:media filename="edit.png">
+               <media:getstring
+                   namespace="APF\modules\usermanagement\pres"
+                   config="labels.ini"
+                   entry="frontend.permission.list.action.edit.label"/>
+            </umgt:media>
+         </a>
+         <a href="<template:placeholder name="permission_delete" />">
+            <umgt:media filename="delete.png">
+               <media:getstring
+                   namespace="APF\modules\usermanagement\pres"
+                   config="labels.ini"
+                   entry="frontend.permission.list.action.delete.label"/>
+            </umgt:media>
+         </a>
+      </td>
+   </tr>
+</html:template>

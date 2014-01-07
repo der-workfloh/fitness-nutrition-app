@@ -1,0 +1,45 @@
+{
+	"name": "fna/fna",
+	"description": "fitness Nutrition application",
+	"type": "library",
+        "license": "LGPL-3.0+",
+	"minimum-stability": "dev",
+	"repositories": [
+		{
+                    "type": "composer",
+                    "url": "https://packages.zendframework.com/"
+		},
+                {
+                    "type": "git",
+                    "url": "git://github.com/Mayflower/PHP_CodeBrowser.git"
+                },
+                {
+                    "type": "pear",
+                    "url": "http://pear2.php.net"
+                }
+	],
+	"require-dev": {
+		"phpunit/phpunit": "3.8.*@dev",
+                "phpunit/phpunit-mock-objects": "1.3.*@dev",
+                "phpunit/dbunit": "1.3.*@dev",
+                "phpunit/phpunit-selenium": "dev-master",
+                "phpunit/phpunit-story": "dev-master",
+                "phpunit/php-code-coverage": "1.3.*@dev",
+                "phpunit/phpcov": "2.0.*@dev",
+                "phpunit/php-file-iterator": "1.3.*@dev",
+                "phpunit/php-token-stream": "1.2.*@dev",
+                "phpunit/php-timer": "dev-master",
+                "phpunit/php-text-template": "dev-master",
+                "phpmd/phpmd": "dev-master",
+                "pdepend/pdepend": "dev-master",
+                "squizlabs/php_codesniffer": "dev-phpcs-fixer",
+                "phpdocumentor/phpdocumentor": "dev-develop",
+                "phploc/phploc": "2.0.*@dev",
+                "mayflower/php-codebrowser": "dev-bootstrap",
+                "sebastian/phpcpd": "2.0.*@dev"
+	},
+	"require": {
+		"zendframework/zendframework": "2.3.*@dev",
+		"propel/propel": "2.0.*@dev"
+	}
+}

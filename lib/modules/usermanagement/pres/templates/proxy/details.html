@@ -1,0 +1,103 @@
+<@controller
+   class="APF\modules\usermanagement\pres\documentcontroller\proxy\ProxyDetailsController"
+@>
+<h3><html:getstring
+       namespace="APF\modules\usermanagement\pres"
+       config="labels.ini"
+       entry="frontend.proxy.details.headline"/></h3>
+<h4><html:getstring
+       namespace="APF\modules\usermanagement\pres"
+       config="labels.ini"
+       entry="frontend.proxy.details.subline.users-and-groups"/></h4>
+<p>
+   <html:getstring
+       name="intro-text"
+       namespace="APF\modules\usermanagement\pres"
+       config="labels.ini"
+       entry="frontend.proxy.details.intro.text.users-and-groups"/>
+</p>
+<table class="vis-def">
+   <thead>
+      <tr>
+         <td>&nbsp;</td>
+         <td><html:getstring
+                namespace="APF\modules\usermanagement\pres"
+                config="labels.ini"
+                entry="frontend.proxy.details.users-groups.label"/></td>
+         <td><html:getstring
+                namespace="APF\modules\usermanagement\pres"
+                config="labels.ini"
+                entry="frontend.proxy.details.actions.label"/></td>
+      </tr>
+   </thead>
+   <tbody>
+      <html:placeholder name="list" />
+   </tbody>
+</table>
+
+<h4><html:getstring
+       namespace="APF\modules\usermanagement\pres"
+       config="labels.ini"
+       entry="frontend.proxy.details.subline.access"/></h4>
+<p>
+   <html:getstring
+       name="intro-text"
+       namespace="APF\modules\usermanagement\pres"
+       config="labels.ini"
+       entry="frontend.proxy.details.intro.text.access"/>
+</p>
+<html:template name="access-perms">
+   <template:addtaglib class="APF\modules\usermanagement\pres\taglib\UmgtMediaInclusionTag" prefix="umgt" name="media" />
+   <div class="umgt-access-perms">
+      <p>
+         <umgt:media id="read"/>
+         <template:getstring
+                namespace="APF\modules\usermanagement\pres"
+                config="labels.ini"
+                entry="frontend.proxy.details.read-perm.label"/>
+      </p>
+      <p>
+         <umgt:media id="write"/>
+         <template:getstring
+                namespace="APF\modules\usermanagement\pres"
+                config="labels.ini"
+                entry="frontend.proxy.details.write-perm.label"/>
+      </p>
+      <p>
+         <umgt:media id="relation"/>
+         <template:getstring
+                namespace="APF\modules\usermanagement\pres"
+                config="labels.ini"
+                entry="frontend.proxy.details.link-perm.label"/>
+      </p>
+      <p>
+         <umgt:media id="delete"/>
+         <template:getstring
+                namespace="APF\modules\usermanagement\pres"
+                config="labels.ini"
+                entry="frontend.proxy.details.delete-perm.label"/>
+      </p>
+   </div>
+</html:template>
+
+<html:template name="listitem">
+   <template:addtaglib class="APF\modules\usermanagement\pres\taglib\UmgtMediaInclusionTag" prefix="umgt" name="media" />
+   <tr>
+      <td>
+         <umgt:media />
+      </td>
+      <td>
+         <template:placeholder name="item" />
+      </td>
+      <td>
+         <a href="<template:placeholder name="delete_link"/>">
+            <umgt:media filename="delete.png">
+               <media:getstring
+                   namespace="APF\modules\usermanagement\pres"
+                   config="labels.ini"
+                   entry="frontend.proxy.details.actions.revoke.label"/>
+            </umgt:media>
+         </a>
+      </td>
+   </tr>
+</html:template>

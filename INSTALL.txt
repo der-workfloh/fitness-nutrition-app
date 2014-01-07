@@ -1,0 +1,31 @@
+===========================
+===========================
+==                       ==
+==     INSTALLATION      ==
+==                       ==
+===========================
+===========================
+
+Author: Florian Horn
+Veröffentlicht: 27.02.2011
+Kompatibilität APF: 1.13
+
+
+Schritte für die Installation:
+    1. APF runterladen
+    2. wsCatalyst runterladen
+    3. wsCatalyst in ein Verzeichnis entpacken
+    4. APF in das wsCatalyst-Unterverzeichnis "lib" entpacken
+    5. Konfig-Dateien im Unterverzeichnis "lib/config" von .ini.dist zu .ini
+       umbenennen
+    6. Konfig-Dateien Inhalt anpassen
+    7. Im Unterverzeichnis "scripts" die Endung .dist entfernen
+    8. Im phpunit-Skript im Unterverzeichnis "scripts" den Pfad anpassen
+    9. Notfalls Patches zur aktuellen wsCatalyst-Version beziehen unter
+       https://wscatalyst.svn.sourceforge.net/svnroot/wscatalyst/patches/
+
+Mehr dazu unter https://sourceforge.net/apps/trac/wscatalyst/wiki/Dokumentation
+
+
+Empfohlene manuelle Anpassungen:
+     - In lib::core::pagecontroller (line:1276) die maxLoops auf 500 setzen

@@ -1,0 +1,4 @@
+In order to run this project, please create a new database and open the first page. You will be presented a
+configuration dialog to complete the database configuration.
+
+Thereafter, the database is initialized automatically and you can start exploring the implementation example.

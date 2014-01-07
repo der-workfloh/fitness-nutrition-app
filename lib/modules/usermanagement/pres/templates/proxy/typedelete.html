@@ -1,0 +1,41 @@
+<@controller
+   class="APF\modules\usermanagement\pres\documentcontroller\proxy\ProxyTypeDeleteController"
+@>
+<h3><html:getstring
+       namespace="APF\modules\usermanagement\pres"
+       config="labels.ini"
+       entry="frontend.proxy.delete-type.headline"/></h3>
+<p>
+   <html:getstring
+      name="intro-text"
+      namespace="APF\modules\usermanagement\pres"
+      config="labels.ini"
+      entry="frontend.proxy.delete-type.intro.text"/>
+</p>
+<div class="umgt-warn">
+   <html:getstring
+      namespace="APF\modules\usermanagement\pres"
+      config="labels.ini"
+      entry="frontend.proxy.delete-type.warning.text"/>
+</div>
+<core:addtaglib class="APF\tools\form\taglib\HtmlFormTag" prefix="html" name="form" />
+<html:form name="ProxyTypeDelNo" method="post">
+   <div>
+      <form:button name="No">
+         <button:getstring
+               namespace="APF\modules\usermanagement\pres"
+               config="labels.ini"
+               entry="frontend.proxy.edit-type.button-no.label"/>
+      </form:button>
+   </div>
+</html:form>
+<html:form name="ProxyTypeDelYes" method="post">
+   <div>
+      <form:button name="Yes">
+         <button:getstring
+               namespace="APF\modules\usermanagement\pres"
+               config="labels.ini"
+               entry="frontend.proxy.edit-type.button-yes.label"/>
+      </form:button>
+   </div>
+</html:form>

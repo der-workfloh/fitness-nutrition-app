@@ -1,0 +1,116 @@
+.umgt-header {
+   font-size: 28px;
+   font-weight: bolder;
+   margin-bottom: .5em;
+}
+
+.umgt-menu {
+   margin-bottom: 1em;
+}
+
+.umgt-content .umgt-warn {
+   border: 2px solid orange;
+   padding: 10px;
+   color: orange;
+   font-weight: bold;
+   background: #efefef;
+}
+
+.umgt-content .apf-form-error {
+   border: 2px solid red;
+}
+
+.umgt-content .error-cont {
+   margin: 5px;
+   padding: 5px;
+   border: 2px solid red;
+   background-color: #eeeeee;
+}
+
+.umgt-content form label {
+   display: block;
+}
+
+.umgt-content form input[type=text],
+.umgt-content form input[type=password],
+.umgt-content form select,
+.umgt-content form textarea {
+   border: 1px solid #000000;
+   background-color: #eeeeee;
+   width: 200px;
+}
+
+.umgt-content form input[type=submit] {
+   display: block;
+   margin-top: 20px;
+   border: 1px solid #000000;
+   background-color: #eeeeee;
+}
+
+.umgt-content table.vis-def {
+   border: 0 solid gray;
+}
+
+.umgt-content table.vis-def td {
+   padding: 4px;
+   vertical-align: top;
+}
+
+.umgt-content table.vis-def td img {
+   position: relative;
+   top: 4px;
+}
+
+.umgt-content table.vis-def tbody td {
+   border-bottom: 1px solid gray;
+}
+
+.umgt-content table.vis-def thead {
+   background-color: #cccccc;
+   font-weight: bold;
+}
+
+.umgt-content table.vis-def ul {
+   margin: 0;
+   padding: 0 0 0 14px;
+}
+
+.umgt-content form.type-filter {
+   margin-bottom: 15px;
+}
+
+.umgt-content form.type-filter select,
+.umgt-content form.type-filter input {
+   border: 1px solid gray;
+   background: #cccccc;
+}
+
+.umgt-content form.type-filter input[type=submit] {
+   display: inline-block;
+   margin-top: 0;
+}
+
+.umgt-content img.icon {
+   width: 40px;
+   height: 40px;
+   border: none;
+}
+
+.umgt-content .umgt-access-perms p {
+   margin: 0;
+}
+
+.umgt-content .umgt-access-perms p label {
+   display: inline-block;
+}
+
+.umgt-content .umgt-access-perms p input {
+   vertical-align: middle;
+}
+
+.umgt-content .umgt-access-perms p img.icon {
+   vertical-align: middle;
+   margin-right: 10px;
+   width: 20px;
+   height: 20px;
+}

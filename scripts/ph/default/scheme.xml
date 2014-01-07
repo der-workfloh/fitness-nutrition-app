@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : scheme.xml
+    Created on : 08. August 2011
+    Author     : Florian Horn
+    Description:
+        Scheme Configuration
+-->
+
+<scheme>
+
+    <dir name="app">
+        <target>lib/apps/{{{APP}}}</target>
+    </dir>
+    
+    <dir name="conf">
+        <target>lib/config/apps/{{{APP}}}</target>
+    </dir>
+
+</scheme>

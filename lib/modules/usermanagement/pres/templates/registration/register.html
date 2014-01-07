@@ -1,0 +1,139 @@
+<@controller
+   class="APF\modules\usermanagement\pres\documentcontroller\registration\RegistrationController"
+@>
+<core:addtaglib class="APF\tools\form\taglib\HtmlFormTag" prefix="html" name="form" />
+<html:form class="umgt-fe-reg" name="register" method="post">
+   <div>
+      <p>
+         <form:getstring
+               namespace="APF\modules\usermanagement\pres"
+               config="labels.ini"
+               entry="register.form.hint"/>
+      </p>
+      <form:placeholder name="register-error"/>
+      <p>
+         <label for="umgt-fe-reg-firstname">
+            <form:getstring
+                  namespace="APF\modules\usermanagement\pres"
+                  config="labels.ini"
+                  entry="register.firstname.label"/>
+         </label>
+         <form:text id="umgt-fe-reg-firstname" name="firstname" maxlength="100"/>
+      </p>
+      <p>
+         <label for="umgt-fe-reg-lastname">
+            <form:getstring
+                  namespace="APF\modules\usermanagement\pres"
+                  config="labels.ini"
+                  entry="register.lastname.label"/>
+         </label>
+         <form:text id="umgt-fe-reg-lastname" name="lastname" maxlength="100"/>
+      </p>
+      <p>
+         <label for="umgt-fe-reg-street">
+            <form:getstring
+                  namespace="APF\modules\usermanagement\pres"
+                  config="labels.ini"
+                  entry="register.streetandnumber.label"/>
+         </label>
+         <form:text id="umgt-fe-reg-street" name="street" maxlength="100"/>
+         <form:text id="umgt-fe-reg-number" name="number" maxlength="5"/>
+      </p>
+      <p>
+         <label for="umgt-fe-reg-pass">
+            <form:getstring
+                  namespace="APF\modules\usermanagement\pres"
+                  config="labels.ini"
+                  entry="register.zipandcity.label"/>
+         </label>
+         <form:text id="umgt-fe-reg-zip" name="zip" maxlength="5"/>
+         <form:text id="umgt-fe-reg-city" name="city" maxlength="100"/>
+      </p>
+      <p>
+         <label for="umgt-fe-reg-email">
+            <form:getstring
+                  namespace="APF\modules\usermanagement\pres"
+                  config="labels.ini"
+                  entry="register.email.label"/>
+         </label>
+         <form:text id="umgt-fe-reg-email" name="email" maxlength="100"/>
+         <form:addvalidator
+               class="APF\tools\form\validator\EMailValidator"
+               button="sendFormRegistration"
+               control="email"
+               />
+      </p>
+      <p>
+         <label for="umgt-fe-reg-user">
+            <form:getstring
+                  namespace="APF\modules\usermanagement\pres"
+                  config="labels.ini"
+                  entry="register.username.label"/>
+         </label>
+         <form:text id="umgt-fe-reg-user" name="username" maxlength="100"/>
+         <form:addvalidator
+               class="APF\tools\form\validator\TextLengthValidator"
+               button="sendFormRegistration"
+               control="username|password|repeat"
+               />
+      </p>
+      <p>
+         <label for="umgt-fe-reg-pass">
+            <form:getstring
+                  namespace="APF\modules\usermanagement\pres"
+                  config="labels.ini"
+                  entry="register.password.label"/>
+         </label>
+         <form:password id="umgt-fe-reg-pass" name="password" maxlength="100" ref="repeat" />
+         <form:addvalidator
+               class="APF\tools\form\validator\FieldCompareValidator"
+               button="sendFormRegistration"
+               control="password"
+               />
+      </p>
+      <p>
+         <label for="umgt-fe-reg-repeat">
+            <form:getstring
+                  namespace="APF\modules\usermanagement\pres"
+                  config="labels.ini"
+                  entry="register.repeat.label"/>
+         </label>
+         <form:password id="umgt-fe-reg-repeat" maxlength="100" name="repeat"/>
+      </p>
+      <p>
+         <form:button id="umgt-fe-reg-send" name="sendFormRegistration">
+            <button:getstring
+                  namespace="APF\modules\usermanagement\pres"
+                  config="labels.ini"
+                  entry="register.button.label"/>
+         </form:button>
+      </p>
+   </div>
+</html:form>
+
+<html:template name="register-error">
+   <div class="registration-error">
+      <template:getstring
+            namespace="APF\modules\usermanagement\pres"
+            config="labels.ini"
+            entry="register.input.error"/>
+   </div>
+</html:template>
+
+<html:template name="system-error">
+   <div class="system-error">
+      <template:getstring
+            namespace="APF\modules\usermanagement\pres"
+            config="labels.ini"
+            entry="register.system.error"/>
+   </div>
+</html:template>
+
+<html:template name="register-ok">
+   <div class="credentials-ok">
+      <template:getstring
+            namespace="APF\modules\usermanagement\pres"
+            config="labels.ini"
+            entry="register.success"/>
+   </div>
+</html:template>

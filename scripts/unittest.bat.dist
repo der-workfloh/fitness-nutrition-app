@@ -1,0 +1,3 @@
+@echo off
+
+php phpunit.php --configuration phpunit.xml %*

@@ -1,0 +1,38 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;;
+;; PROJECTHELPER-CONFIGURATION
+;;
+;; Notwendige Konfigurationen für den ProjectHelper
+;;
+;; @author Florian Horn
+;; @version 
+;; Version 1.0, 08.08.2011
+;; 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+[Settings]
+; BaseDir bildet den Hauptpfad zum Entwicklungsverzeichnis
+BaseDir = "/path/to/project/dir"
+
+
+; SourceDir bildet den Hauptpfad zu den Projektschemen
+SourceDir = "lib/scripts/ph"
+
+
+; Log definiert, ob die Transaktionen aufgezeichnet werden (Für Debugging empfohlen)
+; true: Aufzeichnung aktiv
+; false: Aufzeichnung inaktiv
+Log = "false"
+
+
+; Verzeichnisse und Dateien mit folgendem Schema ignorieren
+IgnorePattern = "*\.svn *\.tmp"
+
+
+[Order]
+0.Class     = ""
+0.File      = ""
+0.Namespace = ""

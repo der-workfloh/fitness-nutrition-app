@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="fitnessNutrition-CloudServer-Trunk" default="build-fast">
+    <!--
+    lot of composer dependencies problems...
+       <target name="build" depends="clean,prepare,composer,compile,lint,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpdoc,phpunit,phpcb"/>
+    -->
+ <target name="build" depends="clean,prepare,composer,compile,lint,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpdoc,phpunit,phpcb"/>
+ <target name="build-fast" depends="clean,prepare,compile,lint,phpunit,phpdoc"/>
+
+ <target name="build-parallel" depends="clean,prepare,composer,compile,lint,tools-parallel,phpunit,phpcb"/>
+
+ <target name="tools-parallel" description="Run tools in parallel">
+  <parallel threadCount="2">
+   <sequential>
+    <antcall target="pdepend"/>
+    <antcall target="phpmd-ci"/>
+   </sequential>
+   <antcall target="phpcpd"/>
+   <antcall target="phpcs-ci"/>
+   <antcall target="phploc"/>
+   <antcall target="phpdoc"/>
+  </parallel>
+ </target>
+
+ <target name="clean" description="Cleanup build artifacts">
+  <delete dir="${basedir}/build/api"/>
+  <delete dir="${basedir}/build/code-browser"/>
+  <delete dir="${basedir}/build/coverage"/>
+  <delete dir="${basedir}/build/logs"/>
+  <delete dir="${basedir}/build/pdepend"/>
+  <delete dir="${basedir}/build/phpdoc"/>
+  <delete file="${basedir}/lib/extensions/wsc/config/system/environment.ini" />
+ </target>
+
+ <target name="prepare" depends="clean" description="Prepare for build">
+  <mkdir dir="${basedir}/build/api"/>
+  <mkdir dir="${basedir}/build/code-browser"/>
+  <mkdir dir="${basedir}/build/coverage"/>
+  <mkdir dir="${basedir}/build/logs"/>
+  <touch file="${basedir}/build/logs/checkstyle.xml" />
+  <touch file="${basedir}/build/logs/clover.xml" />
+  <touch file="${basedir}/build/logs/jdepend.xml" />
+  <touch file="${basedir}/build/logs/junit.xml" />
+  <touch file="${basedir}/build/logs/phploc.csv" />
+  <touch file="${basedir}/build/logs/pmd-cpd.xml" />
+  <touch file="${basedir}/build/logs/pmd.xml" />
+  <mkdir dir="${basedir}/build/pdepend"/>
+  <mkdir dir="${basedir}/build/phpdoc"/>
+  <copy file="${basedir}/lib/extensions/wsc/config/system/environment.dist.ini" tofile="${basedir}/lib/extensions/wsc/config/system/environment.ini"/>
+ </target>
+  
+  <target name="composer">
+    <exec dir="${basedir}" executable="php" failonerror="true">
+      <arg line='composer.phar update' />
+    </exec>
+  </target>
+  
+  <target name="compile">
+    <mkdir dir="${basedir}/output" />
+    <exec dir="${basedir}/scripts" executable="php" failonerror="true">
+      <arg line='compile -ej -afna' />
+    </exec>
+  </target>
+
+ <target name="lint" description="Perform syntax check of sourcecode files">
+  <apply executable="php" failonerror="true">
+   <arg value="-l" />
+
+   <fileset dir="${basedir}/output/lib">
+    <include name="**/*.php" />
+    <modified />
+   </fileset>
+
+   <fileset dir="${basedir}/lib/unittests">
+    <include name="**/*.php" />
+    <modified />
+   </fileset>
+  </apply>
+ </target>
+
+ <target name="phploc" description="Measure project size using PHPLOC">
+  <exec executable="php" failonerror="false">
+   <arg value="${basedir}/vendor/bin/phploc" />
+   <arg value="--log-csv" />
+   <arg value="${basedir}/build/logs/phploc.csv" />
+   <arg path="${basedir}/output/lib" />
+  </exec>
+ </target>
+
+ <target name="pdepend" description="Calculate software metrics using PHP_Depend">
+  <exec executable="php" failonerror="false">
+   <arg value="${basedir}/vendor/bin/pdepend" />
+   <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
+   <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
+   <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg" />
+   <arg path="${basedir}/output/lib" />
+  </exec>
+ </target>
+
+ <target name="phpmd"
+         description="Perform project mess detection using PHPMD and print human readable output. Intended for usage on the command line before committing.">
+  <exec executable="php" failonerror="false">
+   <arg value="${basedir}/vendor/bin/phpmd" />
+   <arg path="${basedir}/output/lib" />
+   <arg value="text" />
+   <arg value="${basedir}/build/phpmd.xml" />
+  </exec>
+ </target>
+
+ <target name="phpmd-ci" description="Perform project mess detection using PHPMD creating a log file for the continuous integration server">
+  <exec executable="php" failonerror="false">
+   <arg value="${basedir}/vendor/bin/phpmd" />
+   <arg path="${basedir}/output/lib" />
+   <arg value="xml" />
+   <arg value="${basedir}/build/phpmd.xml" />
+   <arg value="--reportfile" />
+   <arg value="${basedir}/build/logs/pmd.xml" />
+  </exec>
+ </target>
+
+ <target name="phpcs"
+         description="Find coding standard violations using PHP_CodeSniffer and print human readable output. Intended for usage on the command line before committing.">
+  <exec executable="php" failonerror="false">
+   <arg value="${basedir}/vendor/bin/phpcs" />
+   <arg value="--standard=${basedir}/build/phpcs.xml" />
+   <arg path="${basedir}/output/lib" />
+  </exec>
+ </target>
+
+ <target name="phpcs-ci" description="Find coding standard violations using PHP_CodeSniffer creating a log file for the continuous integration server">
+  <exec executable="php" failonerror="false">
+   <arg value="${basedir}/vendor/bin/phpcs" />
+   <arg value="--report=checkstyle" />
+   <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
+   <arg value="--standard=${basedir}/build/phpcs.xml" />
+   <arg path="${basedir}/output/lib" />
+  </exec>
+ </target>
+
+ <target name="phpcpd" description="Find duplicate code using PHPCPD">
+  <exec executable="php" failonerror="false">
+   <arg value="${basedir}/vendor/bin/phpcpd" />
+   <arg value="--log-pmd" />
+   <arg value="${basedir}/build/logs/pmd-cpd.xml" />
+   <arg path="${basedir}/output/lib" />
+  </exec>
+ </target>
+
+  <target name="phpunit">
+    <exec dir="${basedir}/scripts" executable="php" failonerror="true">
+      <arg line="phpunit.php --configuration ${basedir}/scripts/phpunit.jenkins.xml --log-junit ${basedir}/build/logs/junit.xml --coverage-clover ${basedir}/build/logs/clover.xml" />
+    </exec>
+  </target> 
+
+  <target name="phpdoc">
+    <exec executable="php" failonerror="false">
+      <arg value="${basedir}/vendor/bin/phpdoc.php" />
+      <arg line="-t ${basedir}/build/phpdoc/ -ti 'fitnessNutrition Cloudserver' -pp off -ue off -o HTML:frames:phphtmllib -d '${basedir}/output/lib' -i '${basedir}/output/vendor/*'" />
+    </exec>
+  </target>
+
+ <target name="phpcb" description="Aggregate tool output with PHP_CodeBrowser">
+  <exec executable="php" failonerror="false">
+   <arg value="${basedir}/vendor/bin/phpcb" />
+   <arg value="--log" />
+   <arg path="${basedir}/build/logs" />
+   <arg value="--source" />
+   <arg path="${basedir}/output/lib" />
+   <arg value="--output" />
+   <arg path="${basedir}/build/code-browser" />
+  </exec>
+ </target>
+</project>

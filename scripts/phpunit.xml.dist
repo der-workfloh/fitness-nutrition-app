@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : phpunit.xml
+    Created on : 29. Juli 2010, 09:53
+    Author     : Florian Horn
+    Description:
+        PHPUnit Testsuite Configuration
+-->
+
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/3.8/phpunit.xsd" 
+         backupGlobals="false"
+         backupStaticAttributes="true"
+         bootstrap="../lib/unittests/bootstrap.php"
+         colors="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="true"
+         syntaxCheck="false"
+         testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader"
+         verbose="true"
+         strict="true">
+
+    <testsuites>
+
+        <testsuite name="Test">
+            <file>../lib/unittests/StackTest.php</file>
+        </testsuite>
+        
+        <testsuite name="wsCatalyst">
+            <file>../lib/unittests/wsc/tools/xmail/MailerTest.php</file>
+            <file>../lib/unittests/wsc/modules/currencies/CurrencyTest.php</file>
+        </testsuite>
+
+    </testsuites>
+
+</phpunit>

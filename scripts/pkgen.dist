@@ -1,0 +1,177 @@
+<?php
+
+/**
+ * <!--
+ * This file is part of the wsCatalyst-Extensions (wsC) for the
+ * Adventure-PHP-Framework published under
+ * https://sourceforge.net/projects/wscatalyst.
+ *
+ * The wsC is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * The wsC is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with the wsC. If not, see http://www.gnu.org/licenses/lgpl-3.0.txt.
+ * -->
+ */
+
+define( "BR" , "\n" );
+define( "__VERSION" , "1.0" );
+define( "__AUTHOR" , "Florian Horn" );
+define( "__NAME" , "wsCatalyst PrivateKey-Generator" );
+define( "__SKRIPT" , "pkgen" );
+$_SERVER['SERVER_PORT'] = '';
+$_SERVER['REQUEST_URI'] = '';
+$_SERVER['HTTP_HOST']   = '';
+
+require_once('../lib/extensions/wsc/core/bootstrap.php');
+use WSC\functions\common\common;
+
+
+
+/*
+ *
+ * h:           Hilfe
+ * l:			Laenge des Private-Keys (default: 64)
+ *
+ */
+$shortopts  = "hl:f::";
+$longopts  = array(
+    "help",
+    "length:",
+    "file::"
+);
+
+
+
+
+
+
+/**
+ * Parse the CLI Argument List with given options
+ */
+function parseArgumentList($shortopts, $longopts)
+{
+    $aOptions = array();
+
+    $aArgs = getopt( $shortopts, $longopts);
+
+    // --- Hilfe
+    if (array_key_exists('h', $aArgs) || array_key_exists('help', $aArgs)) {
+        showInfo();
+        exit();
+    }
+
+
+    // --- Laenge des Keys
+    if (array_key_exists('l', $aArgs) || array_key_exists('length', $aArgs)) {
+        $aOptions[ 'Length' ] = array_key_exists( 'l' , $aArgs ) ? (int)$aArgs['l'] : (int)$aArgs['length'];
+    } else {
+        $aOptions[ 'Length' ] = 64;
+    }
+
+
+    // --- Speicherort
+    if (array_key_exists('f', $aArgs) || array_key_exists('file', $aArgs)) {
+        $aOptions[ 'File' ] = array_key_exists('f', $aArgs) ? $aArgs['f'] : $aArgs['file'];
+        if (strlen(trim($aOptions['File']))===0) {
+            $aOptions['File'] = 'pkgen.txt';
+        }
+    } else {
+        $aOptions['File'] = null;
+    }
+
+    return $aOptions;
+}
+
+
+/**
+ * Show the CLI Help
+ */
+function showInfo()
+{
+    print( BR.BR );
+    print( __NAME.' '.__VERSION.' by '.__AUTHOR );
+    print( BR.BR );
+
+    $sSkript = __SKRIPT;
+echo <<<EOT
+Syntax: {$sSkript} --help
+Syntax: {$sSkript} [-l] [-f[filename]]
+
+Options:
+    --help/-h               Shows this help
+
+    -l                      Length of private key (default: 64)
+
+    -f                      filename, default "pkgen.txt"
+EOT;
+}
+
+
+
+/**
+ * Show error message
+ * @param string $sMsg
+ */
+function showError($sMsg)
+{
+    showInfo();
+    print( BR.BR.'[RuntimeException] '.$sMsg );
+    exit();
+}
+
+
+
+
+/**
+ * Main compiler script
+ */
+function main($shortopts, $longopts)
+{
+    /*
+     * Parse die ArgumentenListe
+     */
+    $aOptions = parseArgumentList($shortopts, $longopts);
+
+    print(BR.__NAME.' '.__VERSION.' by '.__AUTHOR);
+    print(BR.BR);
+
+    /*
+     * Verschlüsselung
+     */
+    $sRet = generatePassword($aOptions['Length']);
+
+    /*
+     * Ausgabeort
+     */
+    if ($aOptions[ 'File' ] !== null) {
+        $fh = \fopen($aOptions[ 'File' ], 'w+');
+        if (!$fh) {
+            showError( 'Konnte Ausgabedatei nicht erstellen' );
+        }
+        
+        if (!\fwrite($fh, $sRet)) {
+            showError( 'Konnte nicht in Ausgabedatei schreiben' );
+        }
+        
+        \fclose($fh);
+        
+        print('Fertig!'.BR);
+    } else {
+        print($sRet.BR);
+    }
+}
+
+
+
+
+
+// --- Call Main Skript
+main($shortopts, $longopts);

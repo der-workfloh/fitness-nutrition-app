@@ -1,0 +1,38 @@
+<@controller
+   class="APF\extensions\news\pres\documentcontroller\backend\NewsListController"
+@>
+<core:addtaglib class="APF\tools\html\taglib\HtmlIteratorTag" prefix="html" name="iterator" />
+<html:iterator name="newslist">
+    <table id="news-backendlist">
+        <thead>
+            <tr>
+                <th><iterator:getstring namespace="APF\extensions\news" config="labels.ini" entry="Title" /></th>
+                <th><iterator:getstring namespace="APF\extensions\news" config="labels.ini" entry="Date" /></th>
+                <th><iterator:getstring namespace="APF\extensions\news" config="labels.ini" entry="Action" /></th>
+            </tr>
+        </thead>
+        <tbody>
+            <iterator:item>
+                <item:addtaglib class="APF\extensions\news\pres\taglib\NewsMediaInclusionTag" prefix="news" name="media" />
+                <tr>
+                    <td><item:placeholder name="Title" /></td>
+                    <td><item:placeholder name="Date" /></td>
+                    <td>
+                        <a href="<item:placeholder name="LinkEdit" />">
+                            <news:media filename="edit.png" label="Edit" />
+                        </a>
+                        <a href="<item:placeholder name="LinkDelete" />">
+                            <news:media filename="delete.png" label="Delete" />
+                        </a>
+                    </td>
+                </tr>
+            </iterator:item>
+        </tbody>
+    </table>
+</html:iterator>
+
+<html:template name="noentry">
+    <div id="news-noentry">
+        <template:getstring namespace="APF\extensions\news" config="labels.ini" entry="NoEntry" />
+    </div>
+</html:template>

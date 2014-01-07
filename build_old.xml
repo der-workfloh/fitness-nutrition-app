@@ -1,0 +1,71 @@
+<project name="fitnessNutrition-CloudServer-Trunk" default="build">
+<!-- basedir beinhaltet alles bis workspace/svn/ -->
+  <target name="clean">
+    <delete dir="${basedir}/_build" />
+    <delete dir="${basedir}/build/logs" />
+  </target>
+  
+  <target name="prepare">
+    <mkdir dir="${basedir}/_build/logs" />
+    <mkdir dir="${basedir}/build/logs" />
+    <mkdir dir="${basedir}/build/docs" />
+    <touch file="${basedir}/build/logs/clover.xml" />
+    <touch file="${basedir}/build/logs/jdepend.xml" />
+    <touch file="${basedir}/_build/logs/junit.xml" />
+  </target>
+  
+  <!--
+  <target name="config_correction">
+    <delete file="${basedir}/lib/config/core/database/unittest/DEV_connections.ini" />
+    <copy file="${basedir}/lib/config/core/database/unittest/LIVE_connections.ini" tofile="${basedir}/lib/config/core/database/unittest/DEV_connections.ini"/>
+  </target>
+  -->
+  
+  <target name="compile">
+    <mkdir dir="${basedir}/output" />
+    <exec dir="${basedir}/scripts" executable="php" failonerror="true">
+      <arg line='compile_jenkins -ek -afna' />
+    </exec>
+  </target>
+
+  <target name="phpdoc">
+    <exec dir="${basedir}/output" executable="phpdoc" failonerror="false">
+      <arg line="-t ${basedir}/build/docs/ -ti 'fitnessNutrition Cloudserver' -pp off -ue off -o HTML:frames:phphtmllib -d '${basedir}/output' -i '${basedir}/output/vendor/*'" />
+    </exec>
+  </target>
+
+  <target name="phpcpd">
+    <exec dir="${basedir}/output" executable="phpcpd" failonerror="false">
+      <arg line="--log-pmd ${basedir}/build/logs/pmd.xml ." />
+    </exec>
+  </target>
+
+  <target name="pdepend">
+    <exec dir="${basedir}/output" executable="pdepend" failonerror="false">
+      <arg line="--jdepend-xml=${basedir}/build/logs/jdepend.xml ."/>
+    </exec>
+  </target>
+
+  <target name="phpcs">
+    <exec dir="${basedir}/output" executable="phpcs" output="${basedir}/build/logs/checkstyle.xml" failonerror="false">
+      <arg line="--report=checkstyle ." />
+    </exec>
+  </target>
+
+  <target name="phpunit">
+    <exec dir="${basedir}/scripts" executable="php" failonerror="true">
+      <arg line="phpunit.php --configuration ${basedir}/scripts/phpunit.jenkins.xml --log-junit ${basedir}/build/logs/junit.xml --coverage-clover ${basedir}/build/logs/clover.xml" />
+    </exec>
+  </target>
+
+  <target name="code-coverage">
+    <exec dir="${basedir}/scripts" executable="php" failonerror="false">
+      <arg line="phpunit.php --coverage-html ${basedir}/output" />
+    </exec>
+  </target>
+
+  <!--<target name="build" depends="clean,prepare,compile,phpcpd,pdepend,phpunit,code-coverage" />-->
+  <!--<target name="build" depends="clean,prepare,config_correction,compile,phpunit,phpdoc" />-->
+  <target name="build" depends="clean,prepare,compile,phpunit" />
+
+</project>

@@ -1,0 +1,35 @@
+<@controller
+   class="APF\modules\usermanagement\pres\documentcontroller\role\RoleDeleteController"
+@>
+<h3><html:getstring
+      namespace="APF\modules\usermanagement\pres"
+      config="labels.ini"
+      entry="frontend.role.delete.headline"/></h3>
+<p>
+   <html:getstring
+      name="display-name"
+      namespace="APF\modules\usermanagement\pres"
+      config="labels.ini"
+      entry="frontend.role.delete.intro.text"/>
+</p>
+<core:addtaglib class="APF\tools\form\taglib\HtmlFormTag" prefix="html" name="form" />
+<html:form name="RoleDelNo" method="post">
+   <div>
+      <form:button name="No">
+         <button:getstring
+               namespace="APF\modules\usermanagement\pres"
+               config="labels.ini"
+               entry="frontend.role.delete.button-no.label"/>
+      </form:button>
+   </div>
+</html:form>
+<html:form name="RoleDelYes" method="post">
+   <div>
+      <form:button name="Yes">
+         <button:getstring
+               namespace="APF\modules\usermanagement\pres"
+               config="labels.ini"
+               entry="frontend.role.delete.button-yes.label"/>
+      </form:button>
+   </div>
+</html:form>

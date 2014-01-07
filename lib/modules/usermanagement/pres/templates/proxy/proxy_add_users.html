@@ -1,0 +1,62 @@
+<@controller
+   class="APF\modules\usermanagement\pres\documentcontroller\proxy\ProxyAddUsersController"
+@>
+<core:addtaglib class="APF\tools\form\taglib\HtmlFormTag" prefix="html" name="form" />
+<h3><html:getstring
+       namespace="APF\modules\usermanagement\pres"
+       config="labels.ini"
+       entry="frontend.proxy.add-users-to-proxy.headline"/></h3>
+<html:form name="add_perm" method="post">
+   <div>
+      <p>
+         <form:getstring
+               name="intro-text"
+               namespace="APF\modules\usermanagement\pres"
+               config="labels.ini"
+               entry="frontend.proxy.add-users-to-proxy.intro.text"/>
+      </p>
+      <form:listener control="users">
+         <div class="error-cont">
+            <listener:getstring
+                  namespace="APF\modules\usermanagement\pres"
+                  config="labels.ini"
+                  entry="frontend.proxy.add-users-to-proxy.validator.message"/>
+         </div>
+      </form:listener>
+      <div>
+         <label for="users"><form:getstring
+               namespace="APF\modules\usermanagement\pres"
+               config="labels.ini"
+               entry="frontend.proxy.add-users-to-proxy.users.label"/></label>
+         <form:multiselect id="users" name="users" size="6"/>
+      </div>
+      <form:addvalidator
+            class="APF\tools\form\validator\MultiSelectFieldValidator"
+            control="users"
+            button="add"
+            />
+      <form:button name="add">
+         <button:getstring
+               namespace="APF\modules\usermanagement\pres"
+               config="labels.ini"
+               entry="frontend.proxy.add-users-to-proxy.button.label"/>
+      </form:button>
+      <form:hidden name="proxyid" />
+   </div>
+</html:form>
+<html:template name="NoMoreUsers">
+   <p>
+      <template:getstring
+            name="message-1"
+            namespace="APF\modules\usermanagement\pres"
+            config="labels.ini"
+            entry="frontend.proxy.add-users-to-proxy.message.1"/>
+   </p>
+   <p>
+      <template:getstring
+            name="message-2"
+            namespace="APF\modules\usermanagement\pres"
+            config="labels.ini"
+            entry="frontend.proxy.add-users-to-proxy.message.2"/>
+   </p>
+</html:template>

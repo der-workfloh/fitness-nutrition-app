@@ -1,0 +1,187 @@
+<?php
+
+/**
+ * <!--
+ * This file is part of the wsCatalyst-Extensions (wsC) for the
+ * Adventure-PHP-Framework published under
+ * https://sourceforge.net/projects/wscatalyst.
+ *
+ * The wsC is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * The wsC is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with the wsC. If not, see http://www.gnu.org/licenses/lgpl-3.0.txt.
+ * -->
+ */
+
+/**
+ * @file ph
+ * @namespace \
+ *
+ * PROJECTHELPER
+ *
+ * @author Florian Horn
+ * @version
+ * Version 1.0, 08.08.2011<br/>
+ * Version 2.0, 08.11.2013<br/>
+ *
+ */
+
+
+define( "BR" , "\n" );
+define( "__VERSION" , "2.0" );
+define( "__AUTHOR" , "Florian Horn" );
+define( "__NAME" , "wsCatalyst ProjectHelper" );
+define( "__SKRIPT" , "ph" );
+$_SERVER['SERVER_PORT'] = '';
+$_SERVER['REQUEST_URI'] = '';
+$_SERVER['HTTP_HOST']   = '';
+
+
+require_once('../lib/extensions/wsc/core/bootstrap.php');
+
+use WSC\external\projecthelper\ProjectHelperManager;
+use APF\core\configuration\ConfigurationManager;
+
+
+
+/**
+ * Parse the CLI Argument List with given options
+ */
+function parseArgumentList($iParameters, $aParameters)
+{
+    $aOptions = array();
+
+    
+    // --- Hilfe
+    if ($iParameters === 2 && $aParameters[1] === 'help') {
+        showInfo();
+        exit();
+    }
+
+    if ($iParameters !== 2 && $iParameters !== 3 && $iParameters !== 4) {
+        showError( 'Wrong count of parameters!' );
+    }
+
+
+    // --- Create
+    if ($iParameters !== 2 && $aParameters[1] === 'create') {
+        $aOptions['Command'] = 'create';
+        $aOptions['AppName'] = $aParameters[2];
+        $aOptions['Scheme'] = $iParameters !== 4 ? 'default' : $aParameters[3];
+    }
+    else if ($iParameters === 3 && $aParameters[1] === 'delete')
+    {
+        $aOptions['Command'] = 'delete';
+        $aOptions['AppName'] = $aParameters[2];
+    }
+    else if ($iParameters === 3 && $aParameters[1] === 'import')
+    {
+        $aOptions['Command'] = 'import';
+        $aOptions['File'] = $aParameters[2];
+    } 
+    else if ($iParameters === 3 && $aParameters[1] === 'export')
+    {
+        $aOptions['Command'] = 'export';
+        $aOptions['File'] = $aParameters[2];
+    } else {
+        showError('Wrong command syntax!');
+    }
+
+    return $aOptions;
+}
+
+
+/**
+ * Show the CLI Help
+ */
+function showInfo()
+{
+    print(BR.__NAME.' '.__VERSION.' by '.__AUTHOR);
+    print(BR.BR);
+
+    $sSkript = __SKRIPT;
+echo <<<EOT
+Syntax: {$sSkript} help
+Syntax: {$sSkript} create {project-name} ({scheme})
+Syntax: {$sSkript} delete {project-name}
+Syntax: {$sSkript} import {path-to-file}
+Syntax: {$sSkript} export {path-to-file}
+
+Options:
+    help                    Shows this help
+
+    create                  Creates a new project with the project-name with the chosen scheme
+
+    delete                  Deletes a project with the project-name
+
+    import                  Imports a project through the named file
+
+    export                  Exports a project into the named file
+
+EOT;
+}
+
+
+
+/**
+ * Show error message
+ * @param string $sMsg
+ */
+function showError( $sMsg )
+{
+    showInfo();
+    print( BR.BR.'[RuntimeException] '.$sMsg.BR );
+    exit();
+}
+
+
+
+
+/**
+ * Main script
+ */
+function main($iParameters,$aParameters)
+{
+    /*
+     * Parse die ArgumentenListe
+     */
+    $aOptions = parseArgumentList($iParameters,$aParameters);
+
+    print(BR.__NAME.' '.__VERSION.' by '.__AUTHOR);
+    print(BR.BR );
+
+    /*
+     * Compiler-Konfiguration laden
+     */
+    $Cnf = ConfigurationManager::loadConfiguration(
+                'WSC\external\projecthelper',
+                null,
+                null,
+                null,
+                'config.ini' 
+            );
+
+    /*
+     * Projecthelper vorbereiten
+     */
+    ProjectHelperManager::prepare($Cnf, $aOptions);
+
+    // --- Projecthelper durchfuehren
+    print( BR.'Starte ProjectHelper...'.BR.BR );
+    ProjectHelperManager::start();
+}
+
+
+
+
+
+// --- Call Main Skript
+main($argc, $argv);
