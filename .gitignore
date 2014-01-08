@@ -1,0 +1,8 @@
+output
+logs
+scripts/compile
+lib/extensions/wsc/config/external/compiler/config.ini
+lib/extensions/wsc/config/system/environment.ini
+lib/extensions/wsc/config/system/DEV_config.ini
+lib/extensions/wsc/config/system/TEST_config.ini
+lib/extensions/wsc/config/system/LIVE_config.ini

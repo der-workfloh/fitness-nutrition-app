@@ -62,15 +62,6 @@ class PreAbstractBuilder extends AbstractBuilder
         // --- Analysiere Basis-Verzeichnisstruktur
         $this->__getDirectoryEntries($this->__sBaseDir, $this->__aAllFiles, $this->__aAllDirs, $this->__aIgnore);
         
-        // --- Copy-Verzeichnisse hinzufuegen
-        //foreach( $this->__aCopy as $sDir )
-        //{
-        //    $this->__aAllDirs[] = $sDir;
-        //    $this->__getDirectoryEntries( $sDir , $this->__aAllFiles , $this->__aAllDirs , $this->__aIgnore );
-        //}
-
-        $this->__aAllDirs[] = $this->__sBaseDir.'/lib/apps';
-        $this->__aAllDirs[] = $this->__sBaseDir.'/lib/config/apps';
         foreach ($aApps as $sApp) {
             $oAppConfig = ConfigurationManager::loadConfiguration(
                         'APF\apps',
@@ -80,15 +71,6 @@ class PreAbstractBuilder extends AbstractBuilder
                         "compiler.ini"
                     );
             $this->addAppDirInformation($oAppConfig, $sApp);
-            
-            // --- Special files...
-            $sSystemname = \strtolower($sApp);
-            $sProject = $this->__sBaseDir."/lib/apps/".$sSystemname;
-            $this->__aAllDirs[] = $sProject;
-            $this->__aAllDirs[] = $this->__sBaseDir.'/lib/config/apps/'.$sSystemname;
-            $this->__aAllFiles[]= $this->__sBaseDir.'/lib/config/apps/'.$sSystemname.'/'.$this->__sEnvironment.'_config.ini';
-            $this->__getDirectoryEntries( $sProject , $this->__aAllFiles , $this->__aAllDirs , $this->__aIgnore );
-            $this->__aMakros[] = $sSystemname;
         }
 
 
@@ -98,7 +80,21 @@ class PreAbstractBuilder extends AbstractBuilder
         $this->__aAllDirs = \array_merge($this->__aAllDirs, $this->__aForce); 
         $this->__aAllDirs = \array_diff($this->__aAllDirs, $this->__aIgnore['Directories']);
         $this->__aAllFiles = \array_diff($this->__aAllFiles, $this->__aIgnore['Files']);
-
+        
+        // --- Add special directories and files after filtering
+        $this->__aAllDirs[] = $this->__sBaseDir.'/lib/apps';
+        $this->__aAllDirs[] = $this->__sBaseDir.'/lib/config/apps';
+        foreach ($aApps as $sApp) {
+            // --- Special files...
+            $sSystemname = \strtolower($sApp);
+            $sProject = $this->__sBaseDir."/lib/apps/".$sSystemname;
+            $this->__aAllDirs[] = $sProject;
+            $this->__aAllDirs[] = $this->__sBaseDir.'/lib/config/apps/'.$sSystemname;
+            $this->__aAllFiles[]= $this->__sBaseDir.'/lib/config/apps/'.$sSystemname.'/'.$this->__sEnvironment.'_config.ini';
+            $this->__getDirectoryEntries( $sProject , $this->__aAllFiles , $this->__aAllDirs , $this->__aIgnore );
+            $this->__aMakros[] = $sSystemname;
+        }
+        
 
         /*
          * Sortierung
